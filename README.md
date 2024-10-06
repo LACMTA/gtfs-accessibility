@@ -22,3 +22,42 @@ Data gaps that can be addressed:
 Challenges with providing some of this data:
 - bus stops - the sheer number of stops that would need to be reviewed in person on a regular basis to keep the data accurate and fresh.
 - pathways - implementation questions for complex stations, given that the spec is still very new.
+
+## Notes
+
+Valid options for `location_type` in stops.txt ([docs](https://gtfs.org/documentation/schedule/reference/#stopstxt)):
+
+```
+0 (or blank) - Stop (or Platform). A location where passengers board or disembark from a transit vehicle. Is called a platform when defined within a parent_station.
+1 - Station. A physical structure or area that contains one or more platform.
+2 - Entrance/Exit. A location where passengers can enter or exit a station from the street. If an entrance/exit belongs to multiple stations, it may be linked by pathways to both, but the data provider must pick one of them as parent.
+3 - Generic Node. A location within a station, not matching any other location_type, that may be used to link together pathways define in pathways.txt.
+4 - Boarding Area. A specific location on a platform, where passengers can board and/or alight vehicles.
+```
+
+Valid options for `wheelchair_boarding` in stops.txt ([docs](https://gtfs.org/documentation/schedule/reference/#stopstxt)):
+
+```
+For parentless stops:
+0 or empty - No accessibility information for the stop.
+1 - Some vehicles at this stop can be boarded by a rider in a wheelchair.
+2 - Wheelchair boarding is not possible at this stop.
+
+For child stops:
+0 or empty - Stop will inherit its wheelchair_boarding behavior from the parent station, if specified in the parent.
+1 - There exists some accessible path from outside the station to the specific stop/platform.
+2 - There exists no accessible path from outside the station to the specific stop/platform.
+
+For station entrances/exits:
+0 or empty - Station entrance will inherit its wheelchair_boarding behavior from the parent station, if specified for the parent.
+1 - Station entrance is wheelchair accessible.
+2 - No accessible path from station entrance to stops/platforms.
+```
+
+Valid options for `wheelchair_accessible` in trips.txt ([docs](https://gtfs.org/documentation/schedule/reference/#tripstxt)):
+
+```
+0 or empty - No accessibility information for the trip.
+1 - Vehicle being used on this particular trip can accommodate at least one rider in a wheelchair.
+2 - No riders in wheelchairs can be accommodated on this trip.
+```
